@@ -5,7 +5,6 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Plus, Trash2 } from "lucide-react";
-import Date from "./Calendar";
 import { supabase } from "@/lib/supabase";
 import LoginRequiredDialog from "../components/LoginRequiredDialog";
 
@@ -133,7 +132,6 @@ export default function Tasks() {
         open={showLoginDialog}
         onOpenChange={setShowLoginDialog}
       />
-      <Date />
       {/* Task input */}
       <div className="flex gap-2">
         <Input
@@ -157,7 +155,17 @@ export default function Tasks() {
       </div>
 
       {/* Filter buttons */}
-      <div className="flex justify-between gap-2">
+      <div className="flex gap-2">
+        <button
+          onClick={() => setFilter("all")}
+          className={`border-2 border-purple-600 rounded-full px-3 py-1 font-bold transition-colors ${
+            filter === "all"
+              ? "bg-purple-600 text-[#eeeece]"
+              : "bg-white text-purple-600"
+          }`}
+        >
+          all
+        </button>
         <button
           onClick={() => setFilter("active")}
           className={`border-2 border-purple-600 rounded-full px-3 py-1 font-bold transition-colors ${
@@ -191,6 +199,8 @@ export default function Tasks() {
               ? "active"
               : filter === "completed"
               ? "completed"
+              : filter === "all"
+              ? ""
               : ""}{" "}
             tasks
           </p>
